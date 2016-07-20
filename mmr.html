@@ -1,0 +1,94 @@
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+	
+</head>
+
+<body>
+
+<form class="pure-form pure-form-stacked">
+    <fieldset id="media">
+        <legend>Calculate Multimedia Reach & Frequency</legend>
+
+        <div class="pure-g">
+            <div class="pure-u-1-4">
+                <label>Reach</label>
+             </div>
+
+            <div class="pure-u-1-4">
+                <label>TRPs</label>
+            </div>
+		</div>
+		<div class="pure-g">
+            <div class="pure-u-1-4">
+                <input class="pure-u-23-24 reach" type="number" onchange="Update();" min=0 max=100 step=5 value=20 >
+            </div>
+
+            <div class="pure-u-1-4">
+                <input class="pure-u-23-24 trp" type="number" onchange="Update();" min=0 step=10 value=50 >
+            </div>
+		</div>
+		<div class="pure-g" id="prototype">
+            <div class="pure-u-1-4">
+                <input class="pure-u-23-24 reach" type="number" onchange="Update();" min=0 max=100 step=5 value=20 >
+            </div>
+
+            <div class="pure-u-1-4">
+                <input class="pure-u-23-24 trp" type="number" onchange="Update();" min=0 step=10 value=50 >
+            </div>
+			<div class="pure-u-1-4">
+				<button class="pure-button pure-button-primary" onclick="this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode);Update();">X</button>
+            </div>
+        </div>   
+    </fieldset>		
+       <button class="pure-button pure-button-primary" type="button" onclick="AddInput();Update();">+</button>
+	   <hr>
+	   <p id="result"></p>
+
+</form>
+
+<script>
+	Update();
+	var reach;
+	var trps;
+	var frequency;
+	var node = document.getElementById("prototype").cloneNode(true);
+	node.id ="";
+	function Update(){
+	 if (Validate()){
+		Calculate();
+		document.getElementById("result").textContent = "Reach: " + Math.round(reach*1000)/10 + " | TRPs: " + trps + " | Frequency: " + frequency;}
+	}
+	function Validate(){
+	return true;
+	}
+	
+	function AddInput(){
+		a = node.cloneNode(true);
+		document.getElementById("media").appendChild(a);
+		}
+		
+	
+	function mmr(a,b){return a+b-a*b;}
+	
+	function Calculate(){
+		a = GetReachValues();
+		b = GetTrpValues();
+		if (a.every(function (a){return (a>=0 && a <= 1)})){
+		reach = Math.round(a.reduce(mmr)*1000)/1000;
+		trps = b.reduce(function (a,b) {return a+b;});
+		frequency = Math.round((trps/100)/reach*100)/100;}
+		}
+	function GetReachValues(){
+	return Array.prototype.map.call(document.querySelectorAll('.reach'), function(a) {return +a.value/100;});
+	}
+	
+	function GetTrpValues(){
+	return Array.prototype.map.call(document.querySelectorAll('.trp'), function(a) {return +a.value;});
+	}
+</script>
+</body>
+
+
+</html>
