@@ -9,6 +9,7 @@
     <script type="text/javascript" src="https://rss2json.com/gfapi.js"></script>
 
     <script type="text/javascript">
+       var shares = 0;
 var getJSON = function(url, callback) {
     var xhr = new XMLHttpRequest();
     xhr.open('GET', url, true);
@@ -34,7 +35,7 @@ var getJSON = function(url, callback) {
             var entry = result.feed.entries[i];
             var appid ="724911214305886";
             var appsecret = "09e83f52fcc50e72d210dbc61f92d9b4";
-            var shares = 0;
+           
             getJSON('https://graph.facebook.com/v2.9/?fields=engagement&id='+entry.link+'&key=value&access_token='+appid+'|'+appsecret,
  
                     function(err, data) {
