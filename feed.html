@@ -34,7 +34,7 @@ var getJSON = function(url, callback) {
             var entry = result.feed.entries[i];
             var appid ="724911214305886";
             var appsecret = "09e83f52fcc50e72d210dbc61f92d9b4";
-            var data;
+            var shares = 0;
             getJSON('https://graph.facebook.com/v2.9/?fields=engagement&id='+entry.link+'&key=value&access_token='+appid+'|'+appsecret,
  
                     function(err, data) {
@@ -42,10 +42,11 @@ var getJSON = function(url, callback) {
     alert('Something went wrong: ' + err);
   } else {
    alert('success');
+   shares = data.engagement.share_count;
   }
 });
        var div = document.createElement("div");
-            div.appendChild(document.createTextNode(entry.link+' share_count:'+ data.engagement.share_count));
+            div.appendChild(document.createTextNode(entry.link+' share_count:'+ shares));
             container.appendChild(div);      
           }
         }
