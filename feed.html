@@ -35,7 +35,7 @@ var getJSON = function(url, callback) {
             var appid ="724911214305886"
             var appsecret = "09e83f52fcc50e72d210dbc61f92d9b4"
             getJSON('https://graph.facebook.com/v2.9/?fields=engagement&id='+entry.link+'&key=value&access_token='+appid+'|'+appsecret,
-            var data2
+ 
                     function(err, data) {
   if (err !== null) {
     alert('Something went wrong: ' + err);
