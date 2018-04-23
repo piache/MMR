@@ -32,7 +32,8 @@ var getJSON = function(url, callback) {
           var container = document.getElementById("feed");
           for (var i = 0; i < result.feed.entries.length; i++) {
             var entry = result.feed.entries[i];
-            getJSON('https://graph.facebook.com/?fields=engagement&id='+entry,
+            
+            getJSON('https://graph.facebook.com/?fields=engagement&id='+entry.link,
 function(err, data) {
   if (err !== null) {
     alert('Something went wrong: ' + err);
