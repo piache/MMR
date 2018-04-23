@@ -42,7 +42,7 @@ var getJSON = function(url, callback) {
   if (err !== null) {
     alert('Something went wrong: ' + err);
   } else {
-   alert('success');
+   alert('success'+data.engagement.share_count);
    shares = data.engagement.share_count;
   }
 });
