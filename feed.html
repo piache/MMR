@@ -39,12 +39,12 @@ function(err, data) {
   if (err !== null) {
     alert('Something went wrong: ' + err);
   } else {
-    alert(data.engagement.share_count);
+   var div = document.createElement("div");
+            div.appendChild(document.createTextNode(entry.link+' share_count:'+ data.engagement.share_count));
+            container.appendChild(div);
   }
 });
-            var div = document.createElement("div");
-            div.appendChild(document.createTextNode(entry.link));
-            container.appendChild(div);
+            
           }
         }
       });
