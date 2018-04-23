@@ -9,7 +9,20 @@
     <script type="text/javascript" src="https://rss2json.com/gfapi.js"></script>
 
     <script type="text/javascript">
-
+var getJSON = function(url, callback) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', url, true);
+    xhr.responseType = 'json';
+    xhr.onload = function() {
+      var status = xhr.status;
+      if (status === 200) {
+        callback(null, xhr.response);
+      } else {
+        callback(status, xhr.response);
+      }
+    };
+    xhr.send();
+};
     google.load("feeds", "1");
 
     function initialize() {
@@ -19,6 +32,14 @@
           var container = document.getElementById("feed");
           for (var i = 0; i < result.feed.entries.length; i++) {
             var entry = result.feed.entries[i];
+            getJSON('https://graph.facebook.com/?fields=engagement&id='+entry,
+function(err, data) {
+  if (err !== null) {
+    alert('Something went wrong: ' + err);
+  } else {
+    alert('Your query count: ' + data.query.count);
+  }
+});
             var div = document.createElement("div");
             div.appendChild(document.createTextNode(entry.link));
             container.appendChild(div);
